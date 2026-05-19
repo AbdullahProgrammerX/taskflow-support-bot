@@ -72,7 +72,8 @@ docs/reports/          # Faz raporları
 | 3 | Tamam | RAG pipeline |
 | 4 | Tamam | Rate limit + admin reindex |
 | 5 | Tamam | Profesyonel web UI |
-| 6 | Bekliyor | Eval |
+| 6 | Tamam | Eval pipeline |
+| 7 | Bekliyor | Deploy |
 
 Detay: `docs/reports/phase-01-foundation.md` … `phase-05-ui.md`
 
@@ -87,3 +88,11 @@ Invoke-RestMethod -Uri http://127.0.0.1:8000/admin/reindex -Method Post -Headers
 ```
 
 Varsayılan rate limit: **30** istek / **60** saniye / IP (`POST /chat`).
+
+## Eval (Faz 6)
+
+```powershell
+python eval/run_eval.py
+```
+
+Rapor: `eval/results/latest.md` (gitignore — yerelde üretilir).

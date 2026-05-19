@@ -1,0 +1,25 @@
+{"id": "q01", "question": "Ücretsiz planda kaç proje açabilirim?", "expected_sources": ["02-plans-and-limits.md", "07-faq.md"], "expected_keywords": ["3"], "must_refuse": false}
+{"id": "q02", "question": "Pro plan ne kadar?", "expected_sources": ["02-plans-and-limits.md", "07-faq.md"], "expected_keywords": ["12"], "must_refuse": false}
+{"id": "q03", "question": "SSO hangi planda var?", "expected_sources": ["05-security-sso.md", "07-faq.md"], "expected_keywords": ["enterprise", "saml"], "must_refuse": false}
+{"id": "q04", "question": "Free planda API rate limit nedir?", "expected_sources": ["04-api.md", "07-faq.md"], "expected_keywords": ["100"], "must_refuse": false}
+{"id": "q05", "question": "Pro planda dakikada kaç API isteği yapabilirim?", "expected_sources": ["04-api.md"], "expected_keywords": ["1000"], "must_refuse": false}
+{"id": "q06", "question": "Ücretsiz planda kaç üye olabilir?", "expected_sources": ["02-plans-and-limits.md"], "expected_keywords": ["5"], "must_refuse": false}
+{"id": "q07", "question": "Enterprise planında uptime SLA nedir?", "expected_sources": ["02-plans-and-limits.md", "05-security-sso.md"], "expected_keywords": ["99.9"], "must_refuse": false}
+{"id": "q08", "question": "Fatura PDF'lerine ne kadar süre erişebilirim?", "expected_sources": ["03-billing.md"], "expected_keywords": ["24"], "must_refuse": false}
+{"id": "q09", "question": "Yıllık Pro abonelikte iade süresi kaç gün?", "expected_sources": ["03-billing.md"], "expected_keywords": ["14"], "must_refuse": false}
+{"id": "q10", "question": "Destek e-posta adresi nedir?", "expected_sources": ["01-getting-started.md"], "expected_keywords": ["support@taskflow.io"], "must_refuse": false}
+{"id": "q11", "question": "2FA zorunlu kılınabilir mi?", "expected_sources": ["05-security-sso.md"], "expected_keywords": ["2fa"], "must_refuse": false}
+{"id": "q12", "question": "Slack entegrasyonu hangi planlarda var?", "expected_sources": ["06-integrations.md"], "expected_keywords": ["pro"], "must_refuse": false}
+{"id": "q13", "question": "Jira Server ile iki yönlü senkron var mı?", "expected_sources": ["06-integrations.md"], "expected_keywords": ["sunmaz", "yok", "hayır"], "must_refuse": false}
+{"id": "q14", "question": "Free planda Zapier limiti nedir?", "expected_sources": ["06-integrations.md"], "expected_keywords": ["100"], "must_refuse": false}
+{"id": "q15", "question": "Varsayılan veri bölgesi neresidir?", "expected_sources": ["07-faq.md"], "expected_keywords": ["frankfurt", "ab"], "must_refuse": false}
+{"id": "q16", "question": "API temel URL nedir?", "expected_sources": ["04-api.md"], "expected_keywords": ["api.taskflow.io"], "must_refuse": false}
+{"id": "q17", "question": "Kart ödemesi başarısız olursa hesap ne zaman salt okunur olur?", "expected_sources": ["03-billing.md"], "expected_keywords": ["7"], "must_refuse": false}
+{"id": "q18", "question": "Ücretsiz planda depolama limiti nedir?", "expected_sources": ["02-plans-and-limits.md"], "expected_keywords": ["1"], "must_refuse": false}
+{"id": "q19", "question": "Pro planda kaç webhook URL tanımlanabilir?", "expected_sources": ["04-api.md"], "expected_keywords": ["10"], "must_refuse": false}
+{"id": "q20", "question": "Hesap silme talebi kaç günde tamamlanır?", "expected_sources": ["05-security-sso.md"], "expected_keywords": ["30"], "must_refuse": false}
+{"id": "q21", "question": "Bitcoin fiyatı bugün ne kadar?", "expected_sources": [], "expected_keywords": [], "must_refuse": true}
+{"id": "q22", "question": "TaskFlow'un CEO'su kimdir?", "expected_sources": [], "expected_keywords": [], "must_refuse": true}
+{"id": "q23", "question": "Notion ile entegrasyon var mı?", "expected_sources": [], "expected_keywords": [], "must_refuse": true}
+{"id": "q24", "question": "Amazon Prime aboneliği TaskFlow'a dahil mi?", "expected_sources": [], "expected_keywords": [], "must_refuse": true}
+{"id": "q25", "question": "Python'da liste comprehension nasıl yazılır?", "expected_sources": [], "expected_keywords": [], "must_refuse": true}

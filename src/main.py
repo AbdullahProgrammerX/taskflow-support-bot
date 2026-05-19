@@ -48,7 +48,7 @@ def health() -> dict:
     rag_ready = index_stats.get("chunk_count", 0) > 0
     return {
         "status": "ok",
-        "phase": 5,
+        "phase": 6,
         "rag_enabled": rag_ready,
         "openai_configured": settings.api_key_configured,
         "admin_configured": settings.admin_api_key_configured,

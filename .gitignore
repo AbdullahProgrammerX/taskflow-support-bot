@@ -8,6 +8,8 @@ __pycache__/
 .mypy_cache/
 .ruff_cache/
 chroma_data/
+eval/results/latest.json
+eval/results/latest.md
 *.egg-info/
 dist/
 build/
