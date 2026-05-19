@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content="TaskFlow dokümantasyon destek botu — RAG ile kaynaklı yanıtlar" />
+    <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)" />
+    <title>TaskFlow Support</title>
+    <link rel="icon" href="/static/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/static/css/app.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#message-input">Sohbete atla</a>
+
+    <div class="app" data-app>
+      <header class="header">
+        <div class="header__brand">
+          <img class="header__logo" src="/static/favicon.svg" alt="" width="36" height="36" />
+          <div>
+            <h1 class="header__title">TaskFlow Support</h1>
+            <p class="header__tagline">Dokümantasyon destekli yapay zeka asistanı</p>
+          </div>
+        </div>
+        <span id="status-badge" class="badge badge--loading" role="status">Bağlanıyor…</span>
+      </header>
+
+      <main class="layout">
+        <section class="chat-panel" aria-label="Sohbet">
+          <div id="messages" class="messages" role="log" aria-live="polite" aria-relevant="additions">
+            <div id="empty-state" class="empty-state">
+              <h2 class="empty-state__title">Size nasıl yardımcı olabilirim?</h2>
+              <p class="empty-state__hint">
+                Planlar, faturalandırma, API veya güvenlik hakkında sorabilirsiniz.
+              </p>
+              <div id="suggestions" class="chips" role="group" aria-label="Örnek sorular"></div>
+            </div>
+          </div>
+
+          <form id="chat-form" class="composer" autocomplete="off">
+            <label class="composer__label" for="message-input">Mesajınız</label>
+            <textarea
+              id="message-input"
+              class="composer__input"
+              rows="1"
+              maxlength="4000"
+              placeholder="TaskFlow hakkında bir soru yazın…"
+              required
+            ></textarea>
+            <div class="composer__footer">
+              <span id="char-count" class="char-count">0 / 4000</span>
+              <button id="send-btn" type="submit" class="btn btn--primary">
+                <span class="btn__label">Gönder</span>
+                <svg class="btn__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </form>
+        </section>
+
+        <aside id="sources-panel" class="sources-panel" aria-label="Kaynaklar" hidden>
+          <h2 class="sources-panel__title">Kaynaklar</h2>
+          <p id="sources-empty" class="sources-panel__empty" hidden>Bu yanıt için kaynak gösterilmedi.</p>
+          <div id="sources-list" class="sources-list"></div>
+        </aside>
+      </main>
+
+      <footer class="footer">
+        <p>TaskFlow bilgi tabanı · OpenAI · <a href="/docs" class="footer__link">API docs</a></p>
+      </footer>
+    </div>
+
+    <div id="toast" class="toast" role="alert" aria-live="assertive"></div>
+
+    <script type="module" src="/static/js/app.js"></script>
+  </body>
+</html>

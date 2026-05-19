@@ -35,6 +35,7 @@ copy .env.example .env
 uvicorn src.main:app --reload
 ```
 
+- **Arayüz:** http://127.0.0.1:8000/
 - Sağlık: http://127.0.0.1:8000/health
 - Swagger UI: http://127.0.0.1:8000/docs
 - Sohbet: `POST http://127.0.0.1:8000/chat` — RAG açıkken `sources` döner
@@ -70,9 +71,10 @@ docs/reports/          # Faz raporları
 | 2 | Tamam | Doküman ingest + Chroma |
 | 3 | Tamam | RAG pipeline |
 | 4 | Tamam | Rate limit + admin reindex |
-| 5 | Bekliyor | Web UI |
+| 5 | Tamam | Profesyonel web UI |
+| 6 | Bekliyor | Eval |
 
-Detay: `docs/reports/phase-01-foundation.md` … `phase-04-api-hardening.md`
+Detay: `docs/reports/phase-01-foundation.md` … `phase-05-ui.md`
 
 ## Admin (Faz 4)
 

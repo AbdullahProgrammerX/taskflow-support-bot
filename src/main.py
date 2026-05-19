@@ -1,22 +1,35 @@
+from pathlib import Path
+
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
-from fastapi.responses import JSONResponse
+from fastapi.responses import FileResponse, JSONResponse
+from fastapi.staticfiles import StaticFiles
 
 from src.api.routes_admin import router as admin_router
 from src.api.routes_chat import router as chat_router
-from src.config import settings
+from src.config import PROJECT_ROOT, settings
 from src.ingestion.indexer import get_collection_stats
 from src.middleware.rate_limit import RateLimitMiddleware
 
+STATIC_DIR = PROJECT_ROOT / "static"
+
 app = FastAPI(
     title="TaskFlow Support Bot",
-    description="RAG destek botu — Faz 4: rate limit ve admin reindex",
-    version="0.4.0",
+    description="RAG destek botu — Faz 5: web arayüzü + API",
+    version="0.5.0",
 )
 
 app.add_middleware(RateLimitMiddleware)
 app.include_router(chat_router)
 app.include_router(admin_router)
+
+if STATIC_DIR.is_dir():
+    app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
+
+
+@app.get("/", include_in_schema=False)
+def serve_ui() -> FileResponse:
+    return FileResponse(STATIC_DIR / "index.html")
 
 
 @app.exception_handler(RequestValidationError)
@@ -35,7 +48,7 @@ def health() -> dict:
     rag_ready = index_stats.get("chunk_count", 0) > 0
     return {
         "status": "ok",
-        "phase": 4,
+        "phase": 5,
         "rag_enabled": rag_ready,
         "openai_configured": settings.api_key_configured,
         "admin_configured": settings.admin_api_key_configured,
