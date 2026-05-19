@@ -64,13 +64,16 @@ docker compose up --build
 docker compose --profile setup run --rm ingest
 ```
 
-## Deploy (Railway / Render)
+## Deploy (Railway — önerilen)
 
-1. Repo’yu bağla.
-2. Env vars: `OPENAI_API_KEY`, `ADMIN_API_KEY`, isteğe bağlı rate limit değişkenleri.
-3. Start: `uvicorn src.main:app --host 0.0.0.0 --port $PORT`
-4. Persistent volume → `/app/chroma_data` (mümkünse).
-5. İlk deploy: `python scripts/ingest.py --reset`
+Adım adım: [`docs/DEPLOY-RAILWAY.md`](docs/DEPLOY-RAILWAY.md)
+
+1. https://railway.com → GitHub ile giriş
+2. **Deploy from GitHub** → bu repo
+3. **Variables** → `OPENAI_API_KEY`, `ADMIN_API_KEY`, …
+4. **Generate Domain** → canlı URL
+
+Alternatif: [`docs/DEPLOY.md`](docs/DEPLOY.md) (Render)
 
 ## Proje yapısı
 
