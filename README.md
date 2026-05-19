@@ -68,6 +68,20 @@ docs/reports/          # Faz raporları
 |-----|--------|----------|
 | 1 | Tamam | FastAPI + düz LLM chat |
 | 2 | Tamam | Doküman ingest + Chroma |
-| 3 | Tamam | RAG pipeline || 4 | Bekliyor | API sertleştirme |
+| 3 | Tamam | RAG pipeline |
+| 4 | Tamam | Rate limit + admin reindex |
+| 5 | Bekliyor | Web UI |
 
-Detay: `docs/reports/phase-01-foundation.md` … `phase-03-rag-pipeline.md`
+Detay: `docs/reports/phase-01-foundation.md` … `phase-04-api-hardening.md`
+
+## Admin (Faz 4)
+
+`.env` içine `ADMIN_API_KEY` ekle. İsteklerde header: `X-Admin-Key: <değer>`.
+
+```powershell
+$h = @{ "X-Admin-Key" = "your-admin-key" }
+Invoke-RestMethod -Uri http://127.0.0.1:8000/admin/reindex -Method Post -Headers $h `
+  -ContentType "application/json" -Body '{"reset": true}'
+```
+
+Varsayılan rate limit: **30** istek / **60** saniye / IP (`POST /chat`).

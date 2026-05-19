@@ -18,6 +18,11 @@ class Settings(BaseSettings):
     chunk_overlap: int = 100
     embedding_batch_size: int = 64
     rag_top_k: int = 4
+
+    admin_api_key: str = ""
+    rate_limit_requests: int = 30
+    rate_limit_window_seconds: int = 60
+
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",
@@ -27,6 +32,10 @@ class Settings(BaseSettings):
     @property
     def api_key_configured(self) -> bool:
         return bool(self.openai_api_key.strip())
+
+    @property
+    def admin_api_key_configured(self) -> bool:
+        return bool(self.admin_api_key.strip())
 
 
 settings = Settings()
