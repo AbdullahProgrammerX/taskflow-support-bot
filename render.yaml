@@ -1,0 +1,17 @@
+# Render Blueprint — https://render.com
+# Env vars (OPENAI_API_KEY, ADMIN_API_KEY) are set in the Render dashboard.
+services:
+  - type: web
+    name: taskflow-support-bot
+    runtime: docker
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: OPENAI_CHAT_MODEL
+        value: gpt-4o-mini
+      - key: OPENAI_EMBEDDING_MODEL
+        value: text-embedding-3-small
+      - key: RATE_LIMIT_REQUESTS
+        value: "30"
+      - key: RATE_LIMIT_WINDOW_SECONDS
+        value: "60"
