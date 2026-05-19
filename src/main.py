@@ -15,8 +15,8 @@ STATIC_DIR = PROJECT_ROOT / "static"
 
 app = FastAPI(
     title="TaskFlow Support Bot",
-    description="RAG destek botu — Faz 5: web arayüzü + API",
-    version="0.5.0",
+    description="RAG destek botu — production-ready API + UI",
+    version="1.0.0",
 )
 
 app.add_middleware(RateLimitMiddleware)
@@ -48,7 +48,7 @@ def health() -> dict:
     rag_ready = index_stats.get("chunk_count", 0) > 0
     return {
         "status": "ok",
-        "phase": 6,
+        "phase": 7,
         "rag_enabled": rag_ready,
         "openai_configured": settings.api_key_configured,
         "admin_configured": settings.admin_api_key_configured,

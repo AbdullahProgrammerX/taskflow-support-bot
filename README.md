@@ -1,22 +1,34 @@
 # TaskFlow Support Bot (RAG)
 
-Kurgusal **TaskFlow** SaaS dokümantasyonu üzerinde çalışan RAG destek botu. FastAPI + OpenAI + Chroma.
+[![GitHub](https://img.shields.io/badge/GitHub-taskflow--support--bot-181717?logo=github)](https://github.com/AbdullahProgrammerX/taskflow-support-bot)
 
-**Özellikler:** kaynak gösterimli cevaplar, markdown bilgi tabanı, faz faz öğrenme raporları (`docs/reports/`).
+Kurgusal **TaskFlow** SaaS dokümantasyonu üzerinde çalışan **RAG destek botu**.  
+FastAPI · OpenAI · Chroma · kaynak gösterimli cevaplar · responsive web UI.
 
-| Faz | Özellik |
-|-----|---------|
-| 1 | FastAPI + OpenAI chat |
-| 2 | Chunking, embedding, Chroma ingest |
-| 3 | RAG retrieval + grounded answers |
+> **TaskFlow** bu repoda **örnek müşteri markasıdır**. Aynı motor; kendi `data/knowledge_base/` ve UI markanızla herhangi bir ürüne uyarlanabilir.
 
-> **Güvenlik:** `.env` ve API anahtarları repoya girmez. Clone sonrası `ingest` ile vektör indexini yerelde oluşturursun (`chroma_data/` gitignore'da).
-## Gereksinimler
+## Özellikler
 
-- Python 3.11+
-- OpenAI API key
+- RAG pipeline (retrieval + grounded generation)
+- Markdown bilgi tabanı + Chroma vektör index
+- REST API (`/chat`, `/health`, `/admin/*`)
+- Profesyonel web arayüzü (`/`)
+- Rate limiting, admin reindex
+- Eval seti (25 soru, otomatik skor)
 
-## Kurulum
+## Eval sonuçları (örnek)
+
+| Metrik | Skor |
+|--------|------|
+| Pass rate | **96%** (24/25) |
+| Retrieval | **100%** |
+| Refusal (out-of-scope) | **100%** |
+
+```powershell
+python eval/run_eval.py
+```
+
+## Hızlı başlangıç (yerel)
 
 ```powershell
 git clone https://github.com/AbdullahProgrammerX/taskflow-support-bot.git
@@ -26,73 +38,67 @@ python -m venv .venv
 pip install -r requirements.txt
 copy .env.example .env
 ```
-`.env` dosyasını açıp `OPENAI_API_KEY` değerini gir.
 
-## Çalıştırma
+`.env` içine `OPENAI_API_KEY` ve `ADMIN_API_KEY` gir.
 
 ```powershell
-.\.venv\Scripts\Activate.ps1
+python scripts/ingest.py --reset
 uvicorn src.main:app --reload
 ```
 
-- **Arayüz:** http://127.0.0.1:8000/
-- Sağlık: http://127.0.0.1:8000/health
-- Swagger UI: http://127.0.0.1:8000/docs
-- Sohbet: `POST http://127.0.0.1:8000/chat` — RAG açıkken `sources` döner
+- **UI:** http://127.0.0.1:8000/
+- **Health:** http://127.0.0.1:8000/health
+- **API docs:** http://127.0.0.1:8000/docs
 
-## Bilgi tabanını indexleme (Faz 2)
+## Docker
 
 ```powershell
-pip install -r requirements.txt
-python scripts/ingest.py --reset
+copy .env.example .env
+# .env doldur
+docker compose up --build
 ```
 
-`/health` içinde `index.chunk_count` artmalı.
+İlk çalıştırmada `ensure_index` boş index’i doldurur. Manuel yenileme:
+
+```powershell
+docker compose --profile setup run --rm ingest
+```
+
+## Deploy (Railway / Render)
+
+1. Repo’yu bağla.
+2. Env vars: `OPENAI_API_KEY`, `ADMIN_API_KEY`, isteğe bağlı rate limit değişkenleri.
+3. Start: `uvicorn src.main:app --host 0.0.0.0 --port $PORT`
+4. Persistent volume → `/app/chroma_data` (mümkünse).
+5. İlk deploy: `python scripts/ingest.py --reset`
 
 ## Proje yapısı
 
 ```
-src/
-  main.py              # FastAPI uygulaması
-  config.py            # .env ayarları
-  llm/openai_client.py # OpenAI chat çağrısı
-  api/routes_chat.py   # /chat endpoint
-  ingestion/           # loader, chunker, indexer
-data/knowledge_base/   # TaskFlow MD dosyaları
-scripts/ingest.py      # index CLI
-docs/reports/          # Faz raporları
+src/           # FastAPI, RAG, ingestion
+static/        # Web UI
+data/          # Knowledge base (MD)
+eval/          # Eval questions + runner
+scripts/       # ingest, docker entrypoint
+docs/reports/  # Faz öğrenme raporları
 ```
 
 ## Fazlar
 
-| Faz | Durum | Açıklama |
-|-----|--------|----------|
-| 1 | Tamam | FastAPI + düz LLM chat |
-| 2 | Tamam | Doküman ingest + Chroma |
-| 3 | Tamam | RAG pipeline |
-| 4 | Tamam | Rate limit + admin reindex |
-| 5 | Tamam | Profesyonel web UI |
-| 6 | Tamam | Eval pipeline |
-| 7 | Bekliyor | Deploy |
+| Faz | Durum |
+|-----|--------|
+| 1–3 | API + ingest + RAG |
+| 4 | Rate limit + admin |
+| 5 | Web UI |
+| 6 | Eval |
+| 7 | Docker + deploy |
 
-Detay: `docs/reports/phase-01-foundation.md` … `phase-05-ui.md`
+Detay: [`docs/reports/`](docs/reports/)
 
-## Admin (Faz 4)
+## Lisans
 
-`.env` içine `ADMIN_API_KEY` ekle. İsteklerde header: `X-Admin-Key: <değer>`.
+MIT (veya ihtiyacına göre ekle)
 
-```powershell
-$h = @{ "X-Admin-Key" = "your-admin-key" }
-Invoke-RestMethod -Uri http://127.0.0.1:8000/admin/reindex -Method Post -Headers $h `
-  -ContentType "application/json" -Body '{"reset": true}'
-```
+## Gelecek vizyon
 
-Varsayılan rate limit: **30** istek / **60** saniye / IP (`POST /chat`).
-
-## Eval (Faz 6)
-
-```powershell
-python eval/run_eval.py
-```
-
-Rapor: `eval/results/latest.md` (gitignore — yerelde üretilir).
+No-code KB yükleme, çok kiracılı (multi-tenant) deploy, embed widget — bu repo çekirdek motor.

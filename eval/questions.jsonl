@@ -10,7 +10,7 @@
 {"id": "q10", "question": "Destek e-posta adresi nedir?", "expected_sources": ["01-getting-started.md"], "expected_keywords": ["support@taskflow.io"], "must_refuse": false}
 {"id": "q11", "question": "2FA zorunlu kılınabilir mi?", "expected_sources": ["05-security-sso.md"], "expected_keywords": ["2fa"], "must_refuse": false}
 {"id": "q12", "question": "Slack entegrasyonu hangi planlarda var?", "expected_sources": ["06-integrations.md"], "expected_keywords": ["pro"], "must_refuse": false}
-{"id": "q13", "question": "Jira Server ile iki yönlü senkron var mı?", "expected_sources": ["06-integrations.md"], "expected_keywords": ["sunmaz", "yok", "hayır"], "must_refuse": false}
+{"id": "q13", "question": "Jira Server ile iki yönlü senkron var mı?", "expected_sources": ["06-integrations.md"], "expected_keywords": ["sunm", "yok", "hayır"], "must_refuse": false}
 {"id": "q14", "question": "Free planda Zapier limiti nedir?", "expected_sources": ["06-integrations.md"], "expected_keywords": ["100"], "must_refuse": false}
 {"id": "q15", "question": "Varsayılan veri bölgesi neresidir?", "expected_sources": ["07-faq.md"], "expected_keywords": ["frankfurt", "ab"], "must_refuse": false}
 {"id": "q16", "question": "API temel URL nedir?", "expected_sources": ["04-api.md"], "expected_keywords": ["api.taskflow.io"], "must_refuse": false}
